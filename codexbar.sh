@@ -395,9 +395,20 @@ echo "$merged" | jq -c \
     def fmt_pct:
         (round_pct | tostring);
 
+    def window_label(w; fallback):
+        if w.windowMinutes == 300 then "5-hour"
+        elif w.windowMinutes == 1440 then "daily"
+        elif w.windowMinutes == 10080 then "weekly"
+        elif w.windowMinutes == 43200 then "monthly"
+        else fallback end;
+
+    def remaining_pct(w):
+        if w == null or w.usedPercent == null then null
+        else (100 - w.usedPercent | if . < 0 then 0 elif . > 100 then 100 else . end) end;
+
     def fmt_window(w; name):
         if w == null or w.usedPercent == null then empty
-        else "\(name): \(w.usedPercent | fmt_pct)%" + reset_phrase(w)
+        else "\(name): \(remaining_pct(w) | fmt_pct)% remaining" + reset_phrase(w)
         end;
 
     def fmt_named_window(item; provider):
@@ -482,9 +493,9 @@ echo "$merged" | jq -c \
             (entry_name($entry)) as $name
             | [
                 status_line($entry),
-                fmt_window($entry.usage.primary;   "\($name) primary"),
-                fmt_window($entry.usage.secondary; "\($name) secondary"),
-                fmt_window($entry.usage.tertiary;  "\($name) tertiary"),
+                fmt_window($entry.usage.primary;   "\($name) \(window_label($entry.usage.primary; "primary"))"),
+                fmt_window($entry.usage.secondary; "\($name) \(window_label($entry.usage.secondary; "secondary"))"),
+                fmt_window($entry.usage.tertiary;  "\($name) \(window_label($entry.usage.tertiary; "tertiary"))"),
                 ($entry.usage.extraRateWindows[]? | fmt_named_window(.; $name)),
                 reset_credit_line($entry)
             ]
@@ -505,15 +516,16 @@ echo "$merged" | jq -c \
 
     def pct_or_null(w):
         if w == null or w.usedPercent == null then null
-        else (w.usedPercent | floor) end;
+        else (remaining_pct(w) | floor) end;
 
-    # When the user has pinned a provider for the bar text, surface session
-    # and weekly inline ("3% • 12%"). Otherwise emit the global max%.
+    # Surface remaining quota. Provider pinning shows all available windows;
+    # Highest shows the most constrained window across enabled providers.
     def bar_text(entry):
         if entry == null or entry.error then "🤖 ⚠"
         else
             [pct_or_null(entry.usage.primary),
-             pct_or_null(entry.usage.secondary)]
+             pct_or_null(entry.usage.secondary),
+             pct_or_null(entry.usage.tertiary)]
             | map(select(. != null))
             | if length == 0 then "🤖 —"
               elif length == 1 then "🤖 \(.[0])%"
@@ -530,7 +542,7 @@ echo "$merged" | jq -c \
     | {
         text: (if $pinned != null then bar_text($pinned)
                elif $all_errored then "🤖 ⚠"
-               else "🤖 \($pct | tostring)%" end),
+               else "🤖 \(100 - $pct | fmt_pct)%" end),
         tooltip: ($lines | join("\n")),
         class: (if $all_errored then "stale"
                 elif $pct >= 90 then "critical"

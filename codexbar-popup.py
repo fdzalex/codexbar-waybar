@@ -119,6 +119,16 @@ WINDOW_LABELS = {
     "tertiary": "Monthly",
 }
 
+
+def window_label(key: str, window: dict) -> str:
+    labels = {
+        300: "5-hour",
+        1440: "Daily",
+        10080: "Weekly",
+        43200: "Monthly",
+    }
+    return labels.get(window.get("windowMinutes"), WINDOW_LABELS.get(key, key.title()))
+
 # Provider id → icon filename (without the "ProviderIcon-" prefix and ".svg").
 # Most providers map to their own id; a few share an icon upstream.
 PROVIDER_ICON_ALIAS = {
@@ -1038,7 +1048,7 @@ class CodexBarPopup(Gtk.Application):
         bar_title.add_css_class("codexbar-section-title")
         self.body.append(bar_title)
         bar_hint = Gtk.Label(
-            label="Pick a provider to pin to the bar (session • weekly), or leave on Highest.",
+            label="Pick a provider to pin to the bar, or show the lowest remaining quota.",
             xalign=0.0, wrap=True, max_width_chars=44)
         bar_hint.add_css_class("codexbar-subtitle")
         self.body.append(bar_hint)
@@ -1285,7 +1295,7 @@ class CodexBarPopup(Gtk.Application):
             if not window:
                 continue
             self.body.append(self._divider())
-            self.body.append(self._section(WINDOW_LABELS.get(key, key.title()), window))
+            self.body.append(self._section(window_label(key, window), window))
             rendered_any = True
 
         for item in usage.get("extraRateWindows") or []:
@@ -1368,16 +1378,17 @@ class CodexBarPopup(Gtk.Application):
         t.add_css_class("codexbar-section-title")
         box.append(t)
 
-        pct = window.get("usedPercent")
+        used_pct = window.get("usedPercent")
+        pct = 100 - float(used_pct) if isinstance(used_pct, (int, float)) else None
         bar = Gtk.LevelBar()
         bar.add_css_class("codex-usage")
         bar.set_min_value(0)
         bar.set_max_value(100)
-        bar.set_value(float(pct) if isinstance(pct, (int, float)) else 0)
-        if isinstance(pct, (int, float)):
-            if pct >= 90:
+        bar.set_value(pct if isinstance(pct, (int, float)) else 0)
+        if isinstance(used_pct, (int, float)):
+            if used_pct >= 90:
                 bar.add_css_class("critical")
-            elif pct >= 70:
+            elif used_pct >= 70:
                 bar.add_css_class("warning")
         box.append(bar)
 
@@ -1386,7 +1397,7 @@ class CodexBarPopup(Gtk.Application):
             left_text = "Reset tracked"
         elif isinstance(pct, (int, float)):
             regen = window.get("nextRegenPercent")
-            left_text = f"{int(pct)}% used"
+            left_text = f"{int(pct)}% remaining"
             if isinstance(regen, (int, float)) and regen > 0:
                 left_text += f" · +{compact_number(regen)}% next regen"
         else:
