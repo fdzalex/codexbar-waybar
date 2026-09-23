@@ -47,11 +47,12 @@ gi.require_version("Gtk4LayerShell", "1.0")
 
 from gi.repository import GLib, Gtk, Gtk4LayerShell  # noqa: E402
 
-CODEXBAR = os.environ.get("CODEXBAR_BIN", str(Path.home() / ".local/bin/codexbar"))
+CODEXBAR = os.environ.get("CODEXBAR_BIN", str(Path.home() / ".local/bin/codexbar-cli"))
 CACHE = Path(os.environ.get("XDG_CACHE_HOME", str(Path.home() / ".cache"))) / "codexbar-waybar"
 LAST_GOOD = CACHE / "last.json"
 SCRIPT_DIR = Path(__file__).resolve().parent
 WRAPPER = SCRIPT_DIR / "codexbar.sh"
+XDG_CONFIG_HOME = Path(os.environ.get("XDG_CONFIG_HOME", str(Path.home() / ".config")))
 
 PROVIDER_NAMES = {
     "abacus": "Abacus AI",
@@ -139,15 +140,13 @@ PROVIDER_ICON_ALIAS = {
     "kimik2": "kimi",
 }
 
-CONFIG_PATH = Path.home() / ".codexbar" / "config.json"
-STATE_PATH = Path(
-    os.environ.get("XDG_CONFIG_HOME", str(Path.home() / ".config"))
-) / "codexbar-waybar" / "state.json"
+CONFIG_PATH = XDG_CONFIG_HOME / "codexbar" / "config.json"
+STATE_PATH = XDG_CONFIG_HOME / "codexbar-waybar" / "state.json"
 ICONS_DIR = Path(
     os.environ.get("XDG_DATA_HOME", str(Path.home() / ".local/share"))
 ) / "codexbar-waybar" / "icons"
 
-# CSS mirrors the macOS menu popover: light translucent panel, dark text,
+# CSS mirrors the macOS menu popover using the current Catppuccin palette,
 # thin hairline dividers, no card boxes, restrained accent only on the
 # active provider tab.
 CSS = b"""

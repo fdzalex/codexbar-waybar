@@ -14,8 +14,8 @@ set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-CODEXBAR="${CODEXBAR_BIN:-${HOME}/.local/bin/codexbar}"
-CONFIG_PATH="${HOME}/.codexbar/config.json"
+CODEXBAR="${CODEXBAR_BIN:-${HOME}/.local/bin/codexbar-cli}"
+CONFIG_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/codexbar/config.json"
 STATE_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/codexbar-waybar/state.json"
 CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/codexbar-waybar"
 mkdir -p "$CACHE_DIR"
@@ -52,9 +52,9 @@ if [[ -n "${CODEXBAR_PROVIDERS:-}" ]]; then
     PROVIDERS=( ${CODEXBAR_PROVIDERS} )
 elif [[ -f "$CONFIG_PATH" ]] && command -v jq >/dev/null 2>&1; then
     readarray -t PROVIDERS < <(jq -r '[.providers[]? | select(.enabled == true) | .id] | .[]' "$CONFIG_PATH" 2>/dev/null)
-    [[ ${#PROVIDERS[@]} -eq 0 ]] && PROVIDERS=(codex claude gemini)
+    [[ ${#PROVIDERS[@]} -eq 0 ]] && PROVIDERS=(codex opencodego)
 else
-    PROVIDERS=(codex claude gemini)
+    PROVIDERS=(codex opencodego)
 fi
 
 # Setup Antigravity SSL if it is one of the enabled providers.
