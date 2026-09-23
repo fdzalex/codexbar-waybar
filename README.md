@@ -1,5 +1,11 @@
 # codexbar-waybar
 
+> [!WARNING]
+> **Retired — no longer in active use.** This Waybar module and popover have
+> been replaced on this machine by the Omarchy AI usage plugin with custom
+> modifications (`fada.agents`). Prefer that plugin for current AI subscription
+> usage display. This repository remains available for history and reference.
+
 [![CI](https://github.com/Marouan-chak/codexbar-waybar/actions/workflows/ci.yml/badge.svg)](https://github.com/Marouan-chak/codexbar-waybar/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
