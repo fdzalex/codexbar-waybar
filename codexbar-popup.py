@@ -775,14 +775,28 @@ def load_full_config() -> dict:
 
 
 def save_config(enabled: dict[str, bool]) -> None:
-    """Write only the providers we want enabled. The CLI fills in defaults for
-    any provider missing from the file, so we don't need to list disabled ones."""
+    """Update provider toggles without dropping cookies or provider settings."""
     CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
-    payload = {
-        "providers": [{"id": pid, "enabled": True} for pid, on in enabled.items() if on],
-        "version": 1,
-    }
-    CONFIG_PATH.write_text(json.dumps(payload, indent=2) + "\n")
+    payload = load_full_config()
+    providers = []
+    seen = set()
+    for provider in payload.get("providers", []):
+        pid = provider.get("id")
+        if not isinstance(pid, str):
+            continue
+        updated = dict(provider)
+        updated["enabled"] = enabled.get(pid, False)
+        providers.append(updated)
+        seen.add(pid)
+    for pid, on in enabled.items():
+        if pid not in seen:
+            providers.append({"id": pid, "enabled": on})
+    payload["providers"] = providers
+    payload.setdefault("version", 1)
+    tmp = CONFIG_PATH.with_suffix(".tmp")
+    tmp.write_text(json.dumps(payload, indent=2) + "\n")
+    os.chmod(tmp, 0o600)
+    tmp.replace(CONFIG_PATH)
 
 
 def open_text_file(path: str) -> None:
