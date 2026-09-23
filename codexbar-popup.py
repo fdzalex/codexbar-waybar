@@ -158,27 +158,27 @@ window.codexbar-popup {
 }
 
 .codexbar-root {
-    background-color: #ffffff;
+    background-color: #1e1e2e;
     background-image: none;
-    color: #111111;
+    color: #cdd6f4;
     border-radius: 14px;
-    border: 1px solid #d0d0d0;
+    border: 1px solid #45475a;
     padding: 0;
     min-width: 360px;
 }
 
-/* Force every child of the root to inherit the white panel (Adwaita ships a lot
+/* Force every child of the root to inherit the panel (Adwaita ships a lot
    of toolbar/headerbar styling that paints over our background). */
 .codexbar-root > * {
-    background-color: #ffffff;
+    background-color: #1e1e2e;
     background-image: none;
 }
 
 /* --- Tab strip --- */
 .codexbar-tabbar {
-    background-color: #ffffff;
+    background-color: #1e1e2e;
     padding: 8px 10px 6px 10px;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #45475a;
     border-top-left-radius: 14px;
     border-top-right-radius: 14px;
 }
@@ -187,108 +187,108 @@ window.codexbar-popup {
 .codexbar-tab {
     padding: 5px 12px;
     border-radius: 8px;
-    color: #6b6b6b;
+    color: #a6adc8;
     font-size: 12px;
     font-weight: 600;
     background-color: transparent;
 }
 .codexbar-tab:hover {
-    background-color: #ececec;
-    color: #111111;
+    background-color: #313244;
+    color: #cdd6f4;
 }
 .codexbar-tab.active,
 .codexbar-tab.active:hover {
-    background-color: #0a84ff;
-    color: #ffffff;
+    background-color: #89b4fa;
+    color: #1e1e2e;
 }
 .codexbar-tab label { color: inherit; font-size: 12px; font-weight: 600; }
 
 .codexbar-iconbtn {
     padding: 5px 9px;
     border-radius: 8px;
-    color: #6b6b6b;
+    color: #a6adc8;
     font-size: 13px;
     background-color: transparent;
 }
 .codexbar-iconbtn:hover {
-    background-color: #ececec;
-    color: #111111;
+    background-color: #313244;
+    color: #cdd6f4;
 }
 .codexbar-iconbtn label { color: inherit; font-size: 13px; }
 
 /* --- Body --- */
 .codexbar-body {
-    background-color: #ffffff;
+    background-color: #1e1e2e;
     padding: 14px 18px 6px 18px;
 }
 
 .codexbar-provider-title {
     font-size: 18px;
     font-weight: 700;
-    color: #111111;
+    color: #cdd6f4;
 }
 .codexbar-plan {
     font-size: 11px;
     font-weight: 600;
-    color: #6b6b6b;
+    color: #a6adc8;
 }
 .codexbar-subtitle {
     font-size: 11px;
-    color: #6b6b6b;
+    color: #a6adc8;
 }
 .codexbar-divider {
-    background-color: #e5e5e5;
+    background-color: #45475a;
     min-height: 1px;
     margin: 12px 0;
 }
 .codexbar-section-title {
     font-size: 13px;
     font-weight: 700;
-    color: #111111;
+    color: #cdd6f4;
     margin-bottom: 6px;
 }
 .codexbar-section-detail-left {
     font-size: 11px;
-    color: #2b2b2b;
+    color: #cdd6f4;
     font-feature-settings: "tnum";
 }
 .codexbar-section-detail-right {
     font-size: 11px;
-    color: #6b6b6b;
+    color: #a6adc8;
 }
 .codexbar-credits {
     font-size: 13px;
-    color: #111111;
+    color: #cdd6f4;
     font-feature-settings: "tnum";
     font-weight: 600;
 }
 .codexbar-credits-label {
     font-size: 11px;
-    color: #6b6b6b;
+    color: #a6adc8;
 }
 .codexbar-error {
     font-size: 12px;
-    color: #c53030;
+    color: #f38ba8;
 }
 
 /* --- Footer --- */
 .codexbar-footer {
-    background-color: #ffffff;
+    background-color: #1e1e2e;
     padding: 7px 10px 9px 10px;
-    border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #45475a;
     border-bottom-left-radius: 14px;
     border-bottom-right-radius: 14px;
 }
 .codexbar-footer-btn {
     padding: 4px 10px;
     border-radius: 6px;
-    color: #2b2b2b;
+    color: #cdd6f4;
     font-size: 12px;
     background-color: transparent;
 }
 .codexbar-footer-btn:hover {
-    background-color: #ececec;
-    color: #111111;
+    background-color: #313244;
+    color: #cdd6f4;
 }
 .codexbar-footer-btn label { color: inherit; font-size: 12px; }
 
@@ -296,10 +296,10 @@ window.codexbar-popup {
 .codexbar-settings-title {
     font-size: 13px;
     font-weight: 600;
-    color: #111111;
+    color: #cdd6f4;
 }
 .codexbar-bar-picker {
-    background-color: #ffffff;
+    background-color: #1e1e2e;
     padding: 4px 0 8px 0;
 }
 .codexbar-provider-icon {
@@ -307,28 +307,28 @@ window.codexbar-popup {
     margin: 0 2px;
 }
 .codexbar-settings-list {
-    background-color: #ffffff;
+    background-color: #1e1e2e;
 }
 .codexbar-settings-row {
     padding: 8px 0;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid #313244;
 }
 .codexbar-settings-row.disabled .codexbar-settings-name {
-    color: #9a9a9a;
+    color: #6c7086;
 }
 .codexbar-settings-name {
     font-size: 13px;
     font-weight: 600;
-    color: #111111;
+    color: #cdd6f4;
 }
 .codexbar-settings-hint {
     font-size: 11px;
-    color: #9a9a9a;
+    color: #6c7086;
 }
 .codexbar-settings-group {
     font-size: 11px;
     font-weight: 600;
-    color: #6b6b6b;
+    color: #a6adc8;
     padding: 14px 0 4px 0;
 }
 
@@ -344,16 +344,16 @@ levelbar.codex-usage trough {
     border: none;
 }
 levelbar.codex-usage block.filled {
-    background-color: #0a84ff;
+    background-color: #89b4fa;
     background-image: none;
     min-height: 4px;
     border-radius: 2px;
     border: none;
 }
-levelbar.codex-usage.warning block.filled  { background-color: #ff9f0a; }
-levelbar.codex-usage.critical block.filled { background-color: #ff453a; }
+levelbar.codex-usage.warning block.filled  { background-color: #f9e2af; }
+levelbar.codex-usage.critical block.filled { background-color: #f38ba8; }
 levelbar.codex-usage block.empty {
-    background-color: #e5e5e5;
+    background-color: #45475a;
     background-image: none;
     min-height: 4px;
     border-radius: 2px;
@@ -389,9 +389,7 @@ _ICON_CACHE: dict[str, Path] = {}
 
 
 def resolve_icon_path(pid: str) -> Path | None:
-    """Return a recoloured copy of the provider SVG (dark text colour) so it
-    renders against the popup's light background. Upstream SVGs use
-    `fill=\"white\"`; we substitute that with our theme dark and cache."""
+    """Return a recoloured provider SVG that matches the popup foreground."""
     name = PROVIDER_ICON_ALIAS.get(pid, pid)
     if name in _ICON_CACHE:
         return _ICON_CACHE[name]
@@ -403,11 +401,10 @@ def resolve_icon_path(pid: str) -> Path | None:
     out = out_dir / f"{name}.svg"
     try:
         svg = src.read_text()
-        # Recolour mask-style SVGs (single white path) to dark theme text.
-        recoloured = svg.replace('fill="white"', 'fill="#1c1c1e"') \
-                        .replace("fill='white'", "fill='#1c1c1e'") \
-                        .replace('fill="#ffffff"', 'fill="#1c1c1e"') \
-                        .replace('fill="#FFFFFF"', 'fill="#1c1c1e"')
+        recoloured = svg.replace('fill="white"', 'fill="#cdd6f4"') \
+                        .replace("fill='white'", "fill='#cdd6f4'") \
+                        .replace('fill="#ffffff"', 'fill="#cdd6f4"') \
+                        .replace('fill="#FFFFFF"', 'fill="#cdd6f4"')
         out.write_text(recoloured)
         _ICON_CACHE[name] = out
         return out
