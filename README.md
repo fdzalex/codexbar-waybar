@@ -1,10 +1,21 @@
 # codexbar-waybar
 
 > [!WARNING]
-> **Retired — no longer in active use.** This Waybar module and popover have
-> been replaced on this machine by the Omarchy AI usage plugin with custom
-> modifications (`fada.agents`). Prefer that plugin for current AI subscription
-> usage display. This repository remains available for history and reference.
+> **Archived on 27 October 2026 — no longer used on alx-linux.**
+> This personal fork preserves the historical Waybar module and popover.
+> The current replacement is the customized **My Agents** Omarchy plugin,
+> **`fada.agents`**, maintained in
+> [fdzalex/omarchy-agents](https://github.com/fdzalex/omarchy-agents).
+> It runs as a native widget in Omarchy's Quickshell-based bar, with CPA usage
+> collectors, remaining-quota display and provider details.
+>
+> The plugin is installed at `~/.config/omarchy/plugins/fada.agents/` and selected
+> in `~/.config/omarchy/shell.json`. Waybar and codexbar-waybar are not the active
+> usage interface. Existing code, setup instructions, roadmap and contribution
+> notes below are retained as historical reference, not current installation
+> recommendations. Archive status applies to this personal fork only; the
+> [original upstream project](https://github.com/Marouan-chak/codexbar-waybar)
+> is separate.
 
 [![CI](https://github.com/Marouan-chak/codexbar-waybar/actions/workflows/ci.yml/badge.svg)](https://github.com/Marouan-chak/codexbar-waybar/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
